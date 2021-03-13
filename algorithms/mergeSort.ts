@@ -4,6 +4,9 @@
  *
  * O(n log(n)) running time. The only dissadvantage is it requires more memory because
  * it's keeping the sorted values in new arrays.
+ * 
+ * TIP: the point is that when we compare 2 halfs, the comparison is linear BUT this is only
+ * possible because the halfs are sorted, otherwise we end up inserting unsorted values when sorting
  */
 
 const mergeSort = (inputArray: Array<number>, startIndex: number, endIndex: number) => {
