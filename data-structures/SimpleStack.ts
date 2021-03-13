@@ -42,14 +42,8 @@ class SimpleStack {
             return undefined;
         }
 
-        const prev = this.top.next;
-        if (!prev) {
-            this.top = undefined;
-            return undefined;
-        }
-
         const oldTop = this.top;
-        this.top = prev;
+        this.top = this.top.next;
 
         return oldTop;
     }
