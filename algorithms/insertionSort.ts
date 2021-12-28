@@ -5,6 +5,12 @@
  *
  * O(n^2) algo
  */
+
+// Basically looks back from i-1 to 0 and swaps the i element with its left elements, one by one,
+// until it's sorted (falls into the right place)
+// So the growing left-side is sorted and the shrinking right-side gets inserted one by one in the left
+// Since the left side is sorted, once a new element is inserted in the correct place, there's
+// no need to do further checks in its left neighbours
 const sortByInsertion = (inputArray: Array<number>): Array<number> => {
     if (inputArray.length < 2) {
         return inputArray;
