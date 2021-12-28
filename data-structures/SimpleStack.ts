@@ -9,54 +9,60 @@ class SimpleStack {
     }
 
     print() {
-        console.log('Stack:');
+        console.log('\nStack:');
         let current = this.top;
-        do {
-            console.log(current.value)
+        while (current) {
+            console.log(current.value);
             current = current.next;
-        } while (current);
+        }
+        // this is undefined
+        console.log(current);
     }
 
     replaceNode(search: SimpleNode, newNode: SimpleNode) {
-        // stack empty
-        if (!this.top) {
+        let prev: SimpleNode | undefined;
+        let current = this.top;
+        while (current && current !== search) {
+            prev = current;
+            current = current.next;
+        }
+
+        if (!current) {
+            console.log('Node to replace not found.');
             return;
         }
 
-        // get the node before searched one
-        let beforeCurrent = this.top;
-        while (beforeCurrent.next !== search) {
-            beforeCurrent = beforeCurrent.next;
-            // reached bottom without finding it
-            if (!beforeCurrent) {
-                return;
-            }
-        };
+        if (prev) {
+            prev.next = newNode;
+        }
+        newNode.next = current.next;
 
-        beforeCurrent.next = newNode;
-        newNode.next = search.next;
+        if (current === this.top) {
+            this.top = newNode;
+        }
     }
 
     pop(): SimpleNode|undefined {
-        if (!this.top) {
-            return undefined;
+        const popped = this.top;
+
+        if(this.top) {
+            this.top = this.top.next;
         }
 
-        const oldTop = this.top;
-        this.top = this.top.next;
-
-        return oldTop;
+        return popped;
     }
 }
 
 const s = new SimpleStack();
-s.add(new SimpleNode(1));
+const third = new SimpleNode(1);
+s.add(third);
 const second = new SimpleNode(2);
-s.add(second);
-s.add(new SimpleNode(3));
+s.add(second)
+const first = new SimpleNode(3);
+s.add(first);
 s.print();
 
-s.replaceNode(second, new SimpleNode(222));
+s.replaceNode(first, new SimpleNode(222));
 s.print();
 
 console.log('Pop! =>', s.pop().value);
