@@ -36,8 +36,8 @@ const getNeightbourCoords = (i: number, j: number) => ([
 ]);
 
 const traverseAndMarkAdiacentStartingFrom = (i: number, j: number, input: number[][], output: number[][]) => {
-    // it's 1 (not 0 or undefined/outOfMatrix)
-    if (input[i]?.[j] !== 1) {
+    // don't do anything if input value isn't 1 or if already visited this 1-node
+    if (input[i]?.[j] !== 1 || output[i][j] === 1) {
         return;
     }
 
@@ -46,10 +46,6 @@ const traverseAndMarkAdiacentStartingFrom = (i: number, j: number, input: number
     // traverse all neighbours if didn't already
     getNeightbourCoords(i, j).forEach((coords) => {
         const [x, y] = coords;
-        // don't traverse twice if we already did this for a specific coord
-        if (output[x]?.[y] === 1) {
-            return;
-        }
         traverseAndMarkAdiacentStartingFrom(x, y, input, output);
     });
 }
